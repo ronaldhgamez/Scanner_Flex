@@ -1,7 +1,6 @@
 %{
 typedef enum {
-    ID, KEYWORD,
-	 LPAREN, RPAREN, SEMICOLON, COMMA, OPERATOR, LEXICALERROR
+    ID, KEYWORD, OPERATOR, LEXICALERROR
 } TOKEN;
 %}
 
@@ -10,6 +9,10 @@ DIGIT	[0-9]
 INT		[-+]?DIGIT*
 /* PUEDE NO TENER PUNTO DECIMAL */
 FLOAT	[+-]?[0-9]+(\.[0-9]+)*
+
+/* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito */
+ID      _*[a-zA-Z][a-zA-Z0-9_]*
+
 
 /* Arithmetic Operators */
 ARITHMETIC \+|-|\*|\/|%|~|&|\||\^|<<|>>
@@ -22,6 +25,7 @@ COMPARISON ==|!=|<|>|>=|<=
 
 /* Increment and decrement operators */
 INC_DRE		\+\+|--
+
 /* Logical operators */
 LOGICAL		!|&&|\|\|
 
@@ -31,12 +35,11 @@ OTHERS		{|<%|}|%>|\(|\)|\?|:
 /* Member access operators */
 ACCESS		\[|<:|\]|:>|\.|->
 
-/* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito */
-ID      _*[a-zA-Z][a-zA-Z0-9_]*
+
 
 %%
 
-/*	Keywords: taken from "https://devdocs.io/c/keyword" */
+	/* KEYWORDS */
 auto        printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 break       printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 case        printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
@@ -71,27 +74,24 @@ unsigned	printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 void		printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 volatile	printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 while		printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
-
+	/* EXIT */
 out         return 1;
 
-\(          printf("A LPAREN: %s (%d)", yytext, atoi(yytext));
-\)          printf("A RPAREN: %s (%d)", yytext, atoi(yytext));
-\,                       printf("A COMMA: %s (%d)", yytext, atoi(yytext));
-\;                       printf("A SEMICOLON: %s (%d)", yytext, atoi(yytext));
-\+|\-|\/|\*                 printf("A OPERATOR: %s (%d)", yytext, atoi(yytext));
-{OPERADORES}       printf("A OPERATOR: %s (%d)", yytext, atoi(yytext));
-
-/* Contantes */
+{DIGIT}* 	  	printf("A DIGIT: %s (%d)", yytext, atoi(yytext));
+{ID}       		printf("An ID: %s (%d)", yytext, atoi(yytext));
+{FLOAT}			printf("A FLOAT: %s (%d)", yytext, atoi(yytext));
 
 
-{DIGIT}*    printf("A DIGIT: %s (%d)", yytext, atoi(yytext));
+	/* OPERATORS */
+{ACCESS}		printf("AN ACCESS OPERATOR: %s (%d)", yytext, atoi(yytext));
+{OTHERS}		printf("OTHER OPERATOR: %s (%d)", yytext, atoi(yytext));
 
-{ID}        printf("An ID: %s (%d)", yytext, atoi(yytext));
-{FLOAT}		printf("A FLOAT: %s (%d)", yytext, atoi(yytext));
+{COMPARISON}	printf("A COMPARISON OPERATOR: %s (%d)", yytext, atoi(yytext));
+{INC_DRE}		printf("AN INCDRE OPERATOR: %s (%d)", yytext, atoi(yytext));
+{LOGICAL}		printf("A LOGICAL OPERATOR: %s (%d)", yytext, atoi(yytext));
 {ARITHMETIC}	printf("AN Arithmetic OPERATOR: %s (%d)", yytext, atoi(yytext));
 {ASSIGNMENT}	printf("AN ASSIGNMENT OPERATOR: %s (%d)", yytext, atoi(yytext));
-{COMPARISON}	printf("AN COMPARISON OPERATOR: %s (%d)", yytext, atoi(yytext));
-{INC_DRE}		printf("AN INCDRE OPERATOR: %s (%d)", yytext, atoi(yytext));
+
 
 %%
 int main(int argc, char** argv) {
