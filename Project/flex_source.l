@@ -13,7 +13,6 @@ FLOAT	[+-]?[0-9]+(\.[0-9]+)*
 /* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito */
 ID      _*[a-zA-Z][a-zA-Z0-9_]*
 
-
 /* Arithmetic Operators */
 ARITHMETIC \+|-|\*|\/|%|~|&|\||\^|<<|>>
 
@@ -30,12 +29,10 @@ INC_DRE		\+\+|--
 LOGICAL		!|&&|\|\|
 
 /* OTHER OPERATORS */
-OTHERS		{|<%|}|%>|\(|\)|\?|:
+OTHERS		\{|<%|\}|%>|\(|\)|\?|:
 
 /* Member access operators */
 ACCESS		\[|<:|\]|:>|\.|->
-
-
 
 %%
 
@@ -77,20 +74,20 @@ while		printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 	/* EXIT */
 out         return 1;
 
-{DIGIT}* 	  	printf("A DIGIT: %s (%d)", yytext, atoi(yytext));
-{ID}       		printf("An ID: %s (%d)", yytext, atoi(yytext));
+{ID}       		printf("An INT: %s (%d)", yytext, atoi(yytext));
+{INT} 		  	printf("A DIGIT: %s (%d)", yytext, atoi(yytext));
 {FLOAT}			printf("A FLOAT: %s (%d)", yytext, atoi(yytext));
 
-
 	/* OPERATORS */
-{ACCESS}		printf("AN ACCESS OPERATOR: %s (%d)", yytext, atoi(yytext));
-{OTHERS}		printf("OTHER OPERATOR: %s (%d)", yytext, atoi(yytext));
-
+{ARITHMETIC}	printf("AN Arithmetic OPERATOR: %s (%d)", yytext, atoi(yytext));
+{ASSIGNMENT}	printf("AN ASSIGNMENT OPERATOR: %s (%d)", yytext, atoi(yytext));
 {COMPARISON}	printf("A COMPARISON OPERATOR: %s (%d)", yytext, atoi(yytext));
 {INC_DRE}		printf("AN INCDRE OPERATOR: %s (%d)", yytext, atoi(yytext));
 {LOGICAL}		printf("A LOGICAL OPERATOR: %s (%d)", yytext, atoi(yytext));
-{ARITHMETIC}	printf("AN Arithmetic OPERATOR: %s (%d)", yytext, atoi(yytext));
-{ASSIGNMENT}	printf("AN ASSIGNMENT OPERATOR: %s (%d)", yytext, atoi(yytext));
+{OTHERS}		printf("OTHER OPERATOR: %s (%d)", yytext, atoi(yytext));
+{ACCESS}		printf("AN ACCESS OPERATOR: %s (%d)", yytext, atoi(yytext));
+
+
 
 
 %%
