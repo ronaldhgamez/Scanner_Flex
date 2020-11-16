@@ -4,7 +4,7 @@ typedef enum {
 } TOKEN;
 %}
 
-	/* CONSTANTES: NUMEROS REALES */
+	/* CONSTANTES */
 
 /* Acepta hileras que pueden no tener numeros antes del punto decimal y que deben tener un numero despues del punto decimal. El e^n es opcional */
 /* EJEMPLO:  -.2e+3  ,  +.4E12  ,  .3e-4  ,  -3.3e-4  ,   .56  */
@@ -18,17 +18,25 @@ CONST_REAL2 ((\+?-?)|(-?\+?))?[0-9]+\.[0-9]*((e|E)(\+|-)?[0-9]+)?
 /* EJEMPLO:  -77e-3  ,  +-22e-3   ,  20  ,  -10  ,  3E3  ,   302E2   */
 CONST_REAL3	((\+?-?)|(-?\+?))?[0-9]+((e|E)(\+|-)?[0-9]+)?
 
-/* Numeros en base 8 */
+/* Numeros en base 8. Comienzan con 0 seguido de numeros entre 1-7. Longitud de 12 */
 OCTAL		0[0-7]{1,11}
-/* Números en base 16*/
-HEXADECIMAL	0(X|x)[0-9A-Fa-f]+
-/* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito */
-ID      	_*[a-zA-Z][a-zA-Z0-9_]*
 
-/* Comments */
-COMMENT		\/*\*(.|\s)*\*\/
-/* No admite line breaks */
-NORMALCOM	\/{2,}.*	
+/* Números en base 16. Comienzan con 0x seguido de uno o mas numeros del 0-9 o de a-f */
+HEXADECIMAL	0(X|x)[0-9A-Fa-f]+
+
+/* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito. Puede nombrarse "_" solamente. */
+ID      	(_*[a-zA-Z]|_[0-9a-zA-Z]*)[a-zA-Z0-9_]*
+
+/* Caracter */
+CHAR		'([^\\]|(\\(n|t|r|b|0|'|\\)))'
+/* Cadena de caracteres */
+CHARS		\"([^\"\\]|\\{2}||(\\(n|t|r|b|0|'|\\)))*\"
+	
+	/* Comments */
+COMMENT1		\/*\*(.|\s)*\*\/
+
+/* Comentario normal: // No admite line breaks */
+COMMENT2		\/{2,}.*	
 
 /* Arithmetic Operators */
 ARITHMETIC \+|-|\*|\/|%|~|&|\||\^|<<|>>
