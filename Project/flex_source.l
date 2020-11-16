@@ -1,17 +1,34 @@
 %{
 typedef enum {
-    ID, KEYWORD, OPERATOR, LEXICALERROR
+    ID, KEYWORD, OPERATOR, LITERALCONSTANT, LEXICALERROR
 } TOKEN;
 %}
 
-/* CONSTANTESS */
-DIGIT	[0-9]
-INT		[-+]?DIGIT*
-/* PUEDE NO TENER PUNTO DECIMAL */
-FLOAT	[+-]?[0-9]+(\.[0-9]+)*
+	/* CONSTANTES: NUMEROS REALES */
 
+/* Acepta hileras que pueden no tener numeros antes del punto decimal y que deben tener un numero despues del punto decimal. El e^n es opcional */
+/* EJEMPLO:  -.2e+3  ,  +.4E12  ,  .3e-4  ,  -3.3e-4  ,   .56  */
+CONST_REAL1	((\+?-?)|(-?\+?))?[0-9]*\.[0-9]+((e|E)(\+|-)?[0-9]+)?
+
+/* Acepta hileras que deben tener un numero antes del punto decimal y que pueden pueden no traer un numero despues del punto decimal. El e^n es opcional */
+/* EJEMPLO:  -3.e3  ,  +-22.32 ,  2.e+33  ,  0.e-1  ,  4.  */
+CONST_REAL2
+
+/* Constante real sin el punto decimal */
+/* EJEMPLO:  -77e-3  ,  +-22e-3   ,  20  ,  -10  ,  3E3  ,   302E2   */
+CONST_REAL3	((\+?-?)|(-?\+?))?[0-9]+((e|E)(\+|-)?[0-9]+)?
+
+/* Numeros en base 8 */
+OCTAL		0[0-7]{1,11}
+/* Números en base 16*/
+HEXADECIMAL	0(X|x)[0-9A-Fa-f]+
 /* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito */
-ID      _*[a-zA-Z][a-zA-Z0-9_]*
+ID      	_*[a-zA-Z][a-zA-Z0-9_]*
+
+/* Comments */
+COMMENT		\/*\*(.|\s)*\*\/
+/* No admite line breaks */
+NORMALCOM	\/{2,}.*	
 
 /* Arithmetic Operators */
 ARITHMETIC \+|-|\*|\/|%|~|&|\||\^|<<|>>
@@ -74,11 +91,16 @@ while		printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
 	/* EXIT */
 out         return 1;
 
-{ID}       		printf("An INT: %s (%d)", yytext, atoi(yytext));
-{INT} 		  	printf("A DIGIT: %s (%d)", yytext, atoi(yytext));
-{FLOAT}			printf("A FLOAT: %s (%d)", yytext, atoi(yytext));
+	/* Identificadores: PD: se valida despues de las palabras reservadas */
+{ID}       		printf("An ID: %s (%d)", yytext, atoi(yytext));
 
-	/* OPERATORS */
+	/* Numeros reales */
+{CONST_REAL1}|{CONST_REAL2}|{CONST_REAL3}		printf("A constant REALES: %s (%d)", yytext, atoi(yytext));
+
+	/* Comentarios */
+{COMMENT}|{NORMALCOM} 	printf("A fucking comment: %s (%d)", yytext, atoi(yytext));
+
+	/* Operadores del lenguaje */
 {ARITHMETIC}	printf("AN Arithmetic OPERATOR: %s (%d)", yytext, atoi(yytext));
 {ASSIGNMENT}	printf("AN ASSIGNMENT OPERATOR: %s (%d)", yytext, atoi(yytext));
 {COMPARISON}	printf("A COMPARISON OPERATOR: %s (%d)", yytext, atoi(yytext));
@@ -88,7 +110,7 @@ out         return 1;
 {ACCESS}		printf("AN ACCESS OPERATOR: %s (%d)", yytext, atoi(yytext));
 
 
-
+.				printf("Lexical error: %s (%d)", yytext, atoi(yytext));
 
 %%
 int main(int argc, char** argv) {
