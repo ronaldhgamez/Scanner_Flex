@@ -12,7 +12,7 @@ CONST_REAL1	((\+?-?)|(-?\+?))?[0-9]*\.[0-9]+((e|E)(\+|-)?[0-9]+)?
 
 /* Acepta hileras que deben tener un numero antes del punto decimal y que pueden pueden no traer un numero despues del punto decimal. El e^n es opcional */
 /* EJEMPLO:  -3.e3  ,  +-22.32 ,  2.e+33  ,  0.e-1  ,  4.  */
-CONST_REAL2
+CONST_REAL2 ((\+?-?)|(-?\+?))?[0-9]+\.[0-9]*((e|E)(\+|-)?[0-9]+)?
 
 /* Constante real sin el punto decimal */
 /* EJEMPLO:  -77e-3  ,  +-22e-3   ,  20  ,  -10  ,  3E3  ,   302E2   */
