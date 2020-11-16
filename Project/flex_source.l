@@ -1,8 +1,12 @@
 %{
 typedef enum {
-    ID, KEYWORD, OPERATOR, LITERALCONSTANT, LEXICALERROR
+    ID, KEYWORD, OPERATOR, LITERALCONSTANT, COMMENT, STRINGLITERAL, CHAR,
+	PUNTUATOR, CHARCONSTANT, WHITESPACE, LEXICALERROR
 } TOKEN;
 %}
+
+/* Cualquier caracter en blanco (tabs, salto linea, espacios)*/
+WHITESPACE \s+
 
 	/* CONSTANTES */
 
@@ -21,7 +25,7 @@ CONST_REAL3	((\+?-?)|(-?\+?))?[0-9]+((e|E)(\+|-)?[0-9]+)?
 /* Numeros en base 8. Comienzan con 0 seguido de numeros entre 1-7. Longitud de 12 */
 OCTAL		0[0-7]{1,11}
 
-/* Números en base 16. Comienzan con 0x seguido de uno o mas numeros del 0-9 o de a-f */
+/* Base 16: Comienzan con 0x o 0X seguido de uno o mas numeros del 0-9 o de a-f */
 HEXADECIMAL	0(X|x)[0-9A-Fa-f]+
 
 /* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito. Puede nombrarse "_" solamente. */
@@ -60,6 +64,8 @@ OTHERS		\{|<%|\}|%>|\(|\)|\?|:
 ACCESS		\[|<:|\]|:>|\.|->
 
 %%
+	/* Ignora espacios en blanco: poner este comentario instead */
+{WHITESPACE}	printf("A WHITESPACE: %s (%d)");	
 
 	/* KEYWORDS */
 auto        printf("A KEYWORD: %s (%d)", yytext, atoi(yytext));
@@ -102,8 +108,17 @@ out         return 1;
 	/* Identificadores: PD: se valida despues de las palabras reservadas */
 {ID}       		printf("An ID: %s (%d)", yytext, atoi(yytext));
 
+{CHAR}			printf("A CHAR: %s (%d)", yytext, atoi(yytext));
+{CHARS}			printf("A STRING OF CHARS: %s (%d)", yytext, atoi(yytext));
+
 	/* Numeros reales */
 {CONST_REAL1}|{CONST_REAL2}|{CONST_REAL3}		printf("A constant REALES: %s (%d)", yytext, atoi(yytext));
+
+	/* OCTAL */
+{OCTAL}			printf("AN OCTAL NUMBER: %s (%d)", yytext, atoi(yytext));
+
+	/* HEXADECIMAL */
+{HEXADECIMAL}	printf("AN HEXADECIMAL NUMBER: %s (%d)", yytext, atoi(yytext));
 
 	/* Comentarios */
 {COMMENT}|{NORMALCOM} 	printf("A fucking comment: %s (%d)", yytext, atoi(yytext));
