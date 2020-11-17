@@ -5,3 +5,7 @@
 	sudo apt-get install flex
 3) Instalar pdflatex para generar el PDF de la presentación a partir del .tex
 	sudo apt install texlive-latex-base
+	sudo apt-get install texlive
+	sudo apt-get install texlive-latex-extra
+4) Generar el pdf
+	pdflatex "archivo.tex"
