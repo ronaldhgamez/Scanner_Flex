@@ -79,79 +79,85 @@ ACCESS		\.|->
 {WHITESPACE}	/* Ignora espacios en blanco */
 
 	/* Comentarios */
-{COMMENT1}|{COMMENT2} 	return COMMENT;
+{COMMENT1}|{COMMENT2} 	printf("COMMENT: \"%s\"\n", yytext);
 
 	/* KEYWORDS */
-auto        			return KEYWORD;
-break       			return KEYWORD;
-case        			return KEYWORD;
-char        			return KEYWORD;
-const       			return KEYWORD;
-continue    			return KEYWORD;
-default     			return KEYWORD;
-do          			return KEYWORD;
-double      			return KEYWORD;
-else        			return KEYWORD;
-enum        			return KEYWORD;
-extern      			return KEYWORD;
-float       			return KEYWORD;
-for         			return KEYWORD;
-goto        			return KEYWORD;
-if          			return KEYWORD;
-inline      			return KEYWORD;
-int         			return KEYWORD;
-long        			return KEYWORD;
-register    			return KEYWORD;
-restrict    			return KEYWORD;
-return      			return KEYWORD;
-short       			return KEYWORD;
-signed					return KEYWORD;
-sizeof					return KEYWORD;
-static					return KEYWORD;
-struct					return KEYWORD;
-switch					return KEYWORD;
-typedef					return KEYWORD;
-union					return KEYWORD;
-unsigned				return KEYWORD;
-void					return KEYWORD;
-volatile				return KEYWORD;
-while					return KEYWORD;
+auto        printf("KEYWORD: \"%s\"\n", yytext);
+break       printf("KEYWORD: \"%s\"\n", yytext);
+case        printf("KEYWORD: \"%s\"\n", yytext);
+char        printf("KEYWORD: \"%s\"\n", yytext);
+const       printf("KEYWORD: \"%s\"\n", yytext);
+continue    printf("KEYWORD: \"%s\"\n", yytext);
+default     printf("KEYWORD: \"%s\"\n", yytext);
+do          printf("KEYWORD: \"%s\"\n", yytext);
+double      printf("KEYWORD: \"%s\"\n", yytext);
+else        printf("KEYWORD: \"%s\"\n", yytext);
+enum        printf("KEYWORD: \"%s\"\n", yytext);
+extern      printf("KEYWORD: \"%s\"\n", yytext);
+float       printf("KEYWORD: \"%s\"\n", yytext);
+for         printf("KEYWORD: \"%s\"\n", yytext);
+goto        printf("KEYWORD: \"%s\"\n", yytext);
+if          printf("KEYWORD: \"%s\"\n", yytext);
+inline      printf("KEYWORD: \"%s\"\n", yytext);
+int         printf("KEYWORD: \"%s\"\n", yytext);
+long        printf("KEYWORD: \"%s\"\n", yytext);
+register    printf("KEYWORD: \"%s\"\n", yytext);
+restrict    printf("KEYWORD: \"%s\"\n", yytext);
+return      printf("KEYWORD: \"%s\"\n", yytext);
+short       printf("KEYWORD: \"%s\"\n", yytext);
+signed		printf("KEYWORD: \"%s\"\n", yytext);
+sizeof		printf("KEYWORD: \"%s\"\n", yytext);
+static		printf("KEYWORD: \"%s\"\n", yytext);
+struct		printf("KEYWORD: \"%s\"\n", yytext);
+switch		printf("KEYWORD: \"%s\"\n", yytext);
+typedef		printf("KEYWORD: \"%s\"\n", yytext);
+union		printf("KEYWORD: \"%s\"\n", yytext);
+unsigned	printf("KEYWORD: \"%s\"\n", yytext);
+void		printf("KEYWORD: \"%s\"\n", yytext);
+volatile	printf("KEYWORD: \"%s\"\n", yytext);
+while		printf("KEYWORD: \"%s\"\n", yytext);
 
 	/* Identificadores: PD: se valida despues de las palabras reservadas */
-{ID}       				return IDENTIFIER;
+{ID}       		printf("ID: \"%s\"\n", yytext);
 
-{CHARS}					return LITERAL;
-{CHAR}					return LITERAL;
+{CHARS}			printf("CHARS: \"%s\"\n", yytext);
+{CHAR}			printf("CHAR: \"%s\"\n", yytext);
 
 	/* OCTAL */
-{OCTAL}					return LITERAL;
+{OCTAL}			printf("OCTAL: \"%s\"\n", yytext);
 
 	/* HEXADECIMAL */
-{HEXADECIMAL}			return LITERAL;
+{HEXADECIMAL}	printf("HEXADECIMAL: \"%s\"\n", yytext);
 
 	/* Numeros reales */
-{CONST_REAL1}			return LITERAL;
-{CONST_REAL2}			return LITERAL;
-{CONST_REAL3}			return LITERAL;
+{CONST_REAL1}		printf("REAL1: \"%s\"\n", yytext);
+{CONST_REAL2}		printf("REAL2: \"%s\"\n", yytext);
+{CONST_REAL3}		printf("REAL3: \"%s\"\n", yytext);
 
 	/* Operadores del lenguaje */
-{ARITHMETIC}			return OPERATOR;
-{ASSIGNMENT}			return OPERATOR;
-{COMPARISON}			return OPERATOR;
-{INC_DRE}				return OPERATOR;
-{LOGICAL}				return OPERATOR;
-{PUNTUACTORS}			return PUNTUACTOR;
-{ACCESS}				return OPERATOR;
+{ARITHMETIC}	printf("Arithmetic OPERATOR: \"%s\"\n", yytext);
+{ASSIGNMENT}	printf("ASSIGNMENT OPERATOR: \"%s\"\n", yytext);
+{COMPARISON}	printf("COMPARISON OPERATOR: \"%s\"\n", yytext);
+{INC_DRE}		printf("INCDRE OPERATOR: \"%s\"\n", yytext);
+{LOGICAL}		printf("LOGICAL OPERATOR: \"%s\"\n", yytext);
+{PUNTUACTORS}	printf("PUNTUACTORS: \"%s\"\n", yytext);
+{ACCESS}		printf("ACCESS OPERATOR: \"%s\"\n", yytext);
 	
 	/* ERRORES LEXICOS */
-	/*.*				return LEXICALERROR; */
+	/*.				printf("LEXICALERROR: \"%s\"\n", yytext); */
 
 %%
 
-/**
- * When yylex is finished, it call function yywrap(). If yywrap() returns 1, then yylex returns 0 to its caller. That means "end of file".
- * If yywrap returns 0, then yylex assumes that you have stored a different file into yyin, and it starts reading that file.
- */
+int main(int argc, char** argv) {
+	extern FILE *yyin;
+
+    /* open the source file in read mode */
+    yyin = fopen(argv[1], "r"); 
+    
+	yylex();
+	return 0;
+}
+
 int yywrap() {
     return 1; 
 }

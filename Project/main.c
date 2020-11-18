@@ -1,38 +1,130 @@
 #include <stdio.h>
 #include <stdlib.h>     /* malloc */
 #include <string.h>
-// #include "lex.yy.c"     /* El Scanner */
+#include "lex.yy.c"     /* El Scanner */
 
 char * comandos[] = {
     "pdflatex latex.tex",           // comando para generar el pdf
     "evince -f presentation.pdf"    // comando para abrir el pdf generado en pantalla completa
 };
 
+/* Ya definido dentro de flex_source.l
 typedef enum {
     KEYWORD,
     IDENTIFIER,
     LITERAL,
     OPERATOR,
-    PUNTUATOR,
+    PUNTUACTOR,
     COMMENT,
     LEXICALERROR
 } TOKEN;
+*/
 
 char * colores[] = {
     "cyan",     // KEYWORD      0
     "white",    // IDENTIFIER   1
     "lime",     // LITERAL      2
     "yellow",   // OPERATOR     3
-    "magenta",  // PUNTUATOR    4
+    "magenta",  // PUNTUACTOR    4
     "gray",     // COMMENT      5
     "NordRed"   // LEXICALERROR 6
 };
 
-typedef struct {
-    TOKEN token;
-    char * lexema;
-} REG_EXPRESSION;
+/**
+ * Para llevar un conteo de las veces que aparece el token y poder generar el histograma con los datos
+ */
+int histograma[] = {
+    0,      // KEYWORD      0
+    0,      // IDENTIFIER   1
+    0,      // LITERAL      2
+    0,      // OPERATOR     3
+    0,      // PUNTUATOR    4
+    0,      // COMMENT      5
+    0       // LEXICALERROR 6
+};
 
+struct NodoToken {
+    TOKEN token;
+    char * lexema;  // Tamaño del lexema: guardado en yytext
+    int size;       // Tamaño del lexema: guardado en yyleng
+    struct NodoToken *sig;
+};
+
+/**
+ * LISTA PARA ALMACENAR LOS TOKENS EN MEMORIA CON SU INFORMACIÓN
+ */
+struct NodoToken *ListaTokens = NULL;
+
+
+char* getTipo(TOKEN token) {
+    switch (token) {
+        case KEYWORD:       return "KEYWORD";
+        case IDENTIFIER:    return "IDENTIFIER";
+        case LITERAL:       return "LITERAL";
+        case OPERATOR:      return "OPERATOR";
+        case PUNTUACTOR:    return "PUNTUATOR";
+        case COMMENT:       return "COMMENT";
+        default:            return "LEXICALERROR";
+    }
+}
+
+
+void imprimir() {
+    struct NodoToken *aux = ListaTokens;
+    puts("-----------------------------------------------------");
+    while(aux != NULL) {
+        printf("Lexema: %s    |   Token: %s    |   Size:  %d \n", aux->lexema, getTipo(aux->token), aux->size);
+        puts("-----------------------------------------------------");
+        aux = aux->sig;
+    }
+
+    printf("\nHistograma:\n");
+    printf("\n%s: %d", getTipo(0), histograma[0]);
+    printf("\n%s: %d", getTipo(1), histograma[1]);
+    printf("\n%s: %d", getTipo(2), histograma[2]);
+    printf("\n%s: %d", getTipo(3), histograma[3]);
+    printf("\n%s: %d", getTipo(4), histograma[4]);
+    printf("\n%s: %d", getTipo(5), histograma[5]);
+    printf("\n%s: %d\n", getTipo(6), histograma[6]);
+}
+
+void insertar(TOKEN tok, char *lex, int size) {
+
+    struct NodoToken *nuevo = (struct NodoToken*) malloc(sizeof(struct NodoToken));
+    nuevo->sig = NULL;
+
+    nuevo->lexema = (char*) malloc(100); /* reserva memoria */
+    strcpy(nuevo->lexema, lex);
+    nuevo->token = tok;
+
+    /* inserción en la lista */
+    if (ListaTokens == NULL)
+        ListaTokens = nuevo;
+    else {
+        struct NodoToken *aux = ListaTokens;
+
+        while(aux->sig != NULL) {
+            aux = aux->sig;
+        }
+        aux->sig = nuevo;
+    }
+}
+
+/**
+ * Each time your program calls yylex, it returns the next token (an integer token code).
+ */
+TOKEN getNextToken() {
+    int tok = yylex();
+    return tok;
+}
+
+void scanner() {
+    TOKEN token;
+    while(token = getNextToken() != 0) {
+        insertar(token, yytext, yyleng);
+        histograma[token] += 1; // Suma la aparicion del token
+    }
+}
 
 int main(int argc, char** argv) {
     
@@ -64,8 +156,19 @@ int main(int argc, char** argv) {
 
     fclose(file);
 
-    printf("\nfuente: \"%s\"", nameFile);
-    printf("\ncant: \"%d\"", size);
+    /* preproceso deberia crearme un nuevo file */
+
+    // yylex reads from the file stored in variable yyin
+    // It is up to you to open a file for reading and store it into yyin before you call yylex.
+    extern FILE *yyin;
+
+    /* open the source file in read mode */
+    yyin = fopen(argv[1], "r");
+
+    scanner();
+    imprimir();
+
+    // fclose(yyin);
 
     return 0;
 }
