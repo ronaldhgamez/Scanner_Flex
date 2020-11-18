@@ -1,13 +1,18 @@
 %{
 typedef enum {
-    ID, KEYWORD, OPERATOR, LITERALCONSTANT, COMMENT, STRINGLITERAL, CHAR,
-	PUNTUATOR, CHARCONSTANT, WHITESPACE, LEXICALERROR
+    KEYWORD,
+    IDENTIFIER,
+    LITERAL,
+    OPERATOR,
+    PUNTUATOR,
+    COMMENT,
+    LEXICALERROR
 } TOKEN;
 %}
 
 /* Cualquier caracter en blanco (tabs, salto linea, espacios)*/
 /* si le mando s es white espace?*/
-WHITESPACE 	\s+
+WHITESPACE 	[ \t]*
 
 	/* CONSTANTES */
 
@@ -24,24 +29,28 @@ CONST_REAL2 ((\+?-?)|(-?\+?))?[0-9]+\.[0-9]*((e|E)(\+|-)?[0-9]+)?
 CONST_REAL3	((\+?-?)|(-?\+?))?[0-9]+((e|E)(\+|-)?[0-9]+)?
 
 /* Numeros en base 8. Comienzan con 0 seguido de numeros entre 1-7. Longitud de 12 */
-OCTAL		0[0-7]{1,11}
+OCTAL		^(0[0-7]{1,11})$
 
 /* Base 16: Comienzan con 0x o 0X seguido de uno o mas numeros del 0-9 o de a-f */
-HEXADECIMAL	0(X|x)[0-9a-fA-F]+
+HEXADECIMAL	^(0(X|x)[0-9a-fA-F]+)$
 
 /* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito. Puede nombrarse "_" solamente. */
 ID      	(_*[a-zA-Z]|_[0-9a-zA-Z]*)[a-zA-Z0-9_]*
 
-/* Caracter */
-CHAR		'([^\\]|(\\(n|t|r|b|0|'|\\)))'
-/* Cadena de caracteres */
-CHARS		\"([^\"\\]|\\{2}||(\\(n|t|r|b|0|'|\\)))*\"
-	
+/* Caracteres especiales: Secuencias de escape (digitos octales y hexadecimales) */
+SPECIAL		(\\(a|b|f|n|r|t|v|\\|\'|\"|\?|0|x[0-9][0-9]|[0-3][0-7][0-7]|[0-7][0-7]?))
+/* Caracter Simple: 'C' */
+CHAR		'([^\\']|{SPECIAL})'
+/* Cadena de caracteres: "Secuencia de caracteres" */
+CHARS		\"([^\"\\]|\\{2}|{SPECIAL})*\"
+
 	/* Comments */
-COMMENT1		\/*\*(.|\s)*\*\/
+	/* funciona enviandole desde consola todo el archivo \/*\*((\**[^\/])|(\**(\n)\/*))*\*\/+ */ 
+	/* para pruebas \/*\*(.)*\*\/+ */
+COMMENT1		\/*\*(.)*\*\/+
 
 /* Comentario normal: // No admite line breaks */
-COMMENT2		\/{2,}.*	
+COMMENT2		\/{2,}.*
 
 /* Arithmetic Operators */
 ARITHMETIC \+|-|\*|\/|%|~|&|\||\^|<<|>>
@@ -58,83 +67,84 @@ INC_DRE		\+\+|--
 /* Logical operators */
 LOGICAL		!|&&|\|\|
 
-/* OTHER OPERATORS */
-OTHERS		\{|<%|\}|%>|\(|\)|\?|:
+/* PUNTUACTOR OPERATORS */
+PUNTUACTORS		\{|<%|\}|%>|\(|\)|\[|<:|\]|:>|,|;|\.\.\.|#|:|\?
 
 /* Member access operators */
-ACCESS		\[|<:|\]|:>|\.|->
+ACCESS		\.|->
 
 %%
-	/* Caracteres Blancos */
+	/* Caracteres Blancos printf("WHITESPACE \"%s\"\n", yytext); */
+	
 {WHITESPACE}	/* Ignora espacios en blanco */
 
 	/* Comentarios */
-{COMMENT1}|{COMMENT2} 	printf("\nA fucking comment: %s (%d)", yytext, atoi(yytext));
+{COMMENT1}|{COMMENT2} 	printf("COMMENT: \"%s\"\n", yytext);
 
 	/* KEYWORDS */
-auto        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-break       printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-case        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-char        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-const       printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-continue    printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-default     printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-do          printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-double      printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-else        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-enum        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-extern      printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-float       printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-for         printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-goto        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-if          printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-inline      printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-int         printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-long        printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-register    printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-restrict    printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-return      printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-short       printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-signed		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-sizeof		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-static		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-struct		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-switch		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-typedef		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-union		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-unsigned	printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-void		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-volatile	printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-while		printf("\nA KEYWORD: %s (%d)", yytext, atoi(yytext));
-	/* EXIT */
-out         return 1;
+auto        printf("KEYWORD: \"%s\"\n", yytext);
+break       printf("KEYWORD: \"%s\"\n", yytext);
+case        printf("KEYWORD: \"%s\"\n", yytext);
+char        printf("KEYWORD: \"%s\"\n", yytext);
+const       printf("KEYWORD: \"%s\"\n", yytext);
+continue    printf("KEYWORD: \"%s\"\n", yytext);
+default     printf("KEYWORD: \"%s\"\n", yytext);
+do          printf("KEYWORD: \"%s\"\n", yytext);
+double      printf("KEYWORD: \"%s\"\n", yytext);
+else        printf("KEYWORD: \"%s\"\n", yytext);
+enum        printf("KEYWORD: \"%s\"\n", yytext);
+extern      printf("KEYWORD: \"%s\"\n", yytext);
+float       printf("KEYWORD: \"%s\"\n", yytext);
+for         printf("KEYWORD: \"%s\"\n", yytext);
+goto        printf("KEYWORD: \"%s\"\n", yytext);
+if          printf("KEYWORD: \"%s\"\n", yytext);
+inline      printf("KEYWORD: \"%s\"\n", yytext);
+int         printf("KEYWORD: \"%s\"\n", yytext);
+long        printf("KEYWORD: \"%s\"\n", yytext);
+register    printf("KEYWORD: \"%s\"\n", yytext);
+restrict    printf("KEYWORD: \"%s\"\n", yytext);
+return      printf("KEYWORD: \"%s\"\n", yytext);
+short       printf("KEYWORD: \"%s\"\n", yytext);
+signed		printf("KEYWORD: \"%s\"\n", yytext);
+sizeof		printf("KEYWORD: \"%s\"\n", yytext);
+static		printf("KEYWORD: \"%s\"\n", yytext);
+struct		printf("KEYWORD: \"%s\"\n", yytext);
+switch		printf("KEYWORD: \"%s\"\n", yytext);
+typedef		printf("KEYWORD: \"%s\"\n", yytext);
+union		printf("KEYWORD: \"%s\"\n", yytext);
+unsigned	printf("KEYWORD: \"%s\"\n", yytext);
+void		printf("KEYWORD: \"%s\"\n", yytext);
+volatile	printf("KEYWORD: \"%s\"\n", yytext);
+while		printf("KEYWORD: \"%s\"\n", yytext);
 
 	/* Identificadores: PD: se valida despues de las palabras reservadas */
-{ID}       		printf("\nAn ID: %s (%d)", yytext, atoi(yytext));
+{ID}       		printf("ID: \"%s\"\n", yytext);
 
-	/*{CHAR}			printf("A CHAR: %s (%d)", yytext, atoi(yytext));
-	{CHARS}			printf("A STRING OF CHARS: %s (%d)", yytext, atoi(yytext));*/
+{CHARS}			printf("CHARS: \"%s\"\n", yytext);
+{CHAR}			printf("CHAR: \"%s\"\n", yytext);
 
 	/* OCTAL */
-{OCTAL}			printf("\nAN OCTAL NUMBER: %s (%d)", yytext, atoi(yytext));
+{OCTAL}			printf("OCTAL: \"%s\"\n", yytext);
 
 	/* HEXADECIMAL */
-{HEXADECIMAL}	printf("\nAN HEXADECIMAL NUMBER: %s (%d)", yytext, atoi(yytext));
+{HEXADECIMAL}	printf("HEXADECIMAL: \"%s\"\n", yytext);
 
 	/* Numeros reales */
-{CONST_REAL1}|{CONST_REAL2}|{CONST_REAL3}		printf("A constant REALES: %s (%d)", yytext, atoi(yytext));
+{CONST_REAL1}		printf("REAL1: \"%s\"\n", yytext);
+{CONST_REAL2}		printf("REAL2: \"%s\"\n", yytext);
+{CONST_REAL3}		printf("REAL3: \"%s\"\n", yytext);
 
 	/* Operadores del lenguaje */
-{ARITHMETIC}	printf("\nAN Arithmetic OPERATOR: %s (%d)", yytext, atoi(yytext));
-{ASSIGNMENT}	printf("\nAN ASSIGNMENT OPERATOR: %s (%d)", yytext, atoi(yytext));
-{COMPARISON}	printf("\nA COMPARISON OPERATOR: %s (%d)", yytext, atoi(yytext));
-{INC_DRE}		printf("\nAN INCDRE OPERATOR: %s (%d)", yytext, atoi(yytext));
-{LOGICAL}		printf("\nA LOGICAL OPERATOR: %s (%d)", yytext, atoi(yytext));
-{OTHERS}		printf("\nOTHER OPERATOR: %s (%d)", yytext, atoi(yytext));
-{ACCESS}		printf("\nAN ACCESS OPERATOR: %s (%d)", yytext, atoi(yytext));
-
-
-	/* .				printf("\nLexical error: %s (%d)", yytext, atoi(yytext));*/
+{ARITHMETIC}	printf("Arithmetic OPERATOR: \"%s\"\n", yytext);
+{ASSIGNMENT}	printf("ASSIGNMENT OPERATOR: \"%s\"\n", yytext);
+{COMPARISON}	printf("COMPARISON OPERATOR: \"%s\"\n", yytext);
+{INC_DRE}		printf("INCDRE OPERATOR: \"%s\"\n", yytext);
+{LOGICAL}		printf("LOGICAL OPERATOR: \"%s\"\n", yytext);
+{PUNTUACTORS}	printf("PUNTUACTORS: \"%s\"\n", yytext);
+{ACCESS}		printf("ACCESS OPERATOR: \"%s\"\n", yytext);
+	
+	/* ERRORES LEXICOS */
+.*				printf("LEXICALERROR: \"%s\"\n", yytext);
 
 %%
 
@@ -145,7 +155,7 @@ int main(int argc, char** argv) {
     yyin = fopen(argv[1], "r"); 
   	
 	/* open the output file in write mode */
-    yyout=fopen("output.txt","w"); 
+    //yyout=fopen("output.txt","w");
     
 	yylex();
 	return 0;
