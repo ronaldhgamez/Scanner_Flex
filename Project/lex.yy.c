@@ -1268,16 +1268,18 @@ YY_RULE_SETUP
 #line 145 "flex_source.l"
 return OPERATOR;
 	YY_BREAK
+case YY_STATE_EOF(INITIAL):
+#line 147 "flex_source.l"
+return EOF;
+	YY_BREAK
 /* ERRORES LEXICOS */
 /*.*				return LEXICALERROR; */
 case 52:
 YY_RULE_SETUP
-#line 150 "flex_source.l"
+#line 151 "flex_source.l"
 ECHO;
 	YY_BREAK
-#line 1279 "lex.yy.c"
-case YY_STATE_EOF(INITIAL):
-	yyterminate();
+#line 1283 "lex.yy.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2283,7 +2285,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 150 "flex_source.l"
+#line 151 "flex_source.l"
 
 
 /**

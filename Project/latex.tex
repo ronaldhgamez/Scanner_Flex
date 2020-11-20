@@ -1,0 +1,65 @@
+\documentclass[compress]{beamer}
+
+\usepackage[english]{babel}
+\usepackage{pgfplots}   % para mostrar el histograma
+\usepackage{ragged2e}   % Para justificar en beamer; usar \justifying
+\usepackage{lmodern}    % Corrige el error al imprimir >>
+
+\usetheme{Nord}
+% \usetheme[style=light]{Nord}
+
+\AtBeginSection[]
+{
+  \begin{frame}[c,noframenumbering,plain]
+    \tableofcontents[sectionstyle=show/hide,subsectionstyle=show/show/hide]
+  \end{frame}
+}
+
+
+% Portada
+\title{Analizador Léxico de C creado con Flex}
+\subtitle{Instituto Tecnológico de Costa Rica \\Compiladores e Intérpretes \\Semestre II 2020}
+\author{Ronald Herrera Gámez}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[plain,noframenumbering]
+  \maketitle
+\end{frame}
+
+% Descripción de Scanning
+\begin{frame}{Proceso de Scanning}
+
+    \justifying
+    Consiste en determinar las diferentes unidades elementales de un programa fuente, es decir identifica los distintos lexemas de un lenguaje. Para este proceso, el scanner busca patrones dentro del fuente que cumplan con instrucciones, operadores, identificadores, constantes, entre otros, del lenguaje que se escanea.
+    
+    \begin{figure}
+        \centering
+        \includegraphics[scale=1.2]{images/scanning.png}
+    \end{figure}
+
+\end{frame}
+
+% Descripción de Flex
+\begin{frame}{Flex (Fast Lexical Analyzer)}
+    \justifying
+    Flex es una herramienta para generar analizadores léxicos basados en la teoría de autómatas finitos. Para ello, se crea la descripción del escáner en forma de pares de expresiones regulares y código C, llamados reglas. Flex genera un archivo fuente en C llamado "lex.yy.c" que se puede compilar y vincular para producir un ejecutable. Este ejecutable analiza su entrada en busca de ocurrencias de texto que coinciden con las expresiones regulares para cada regla y siempre que encuentra una coincidencia, ejecuta el código C correspondiente.
+
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.3]{images/flex.png}
+    \end{figure}
+    
+\end{frame}
+
+\begin{frame} 
+\centering
+\huge
+    \textcolor{lime}{\textbf{Programa Fuente Después Del Preproceso}}
+\end{frame}
+
+% Codigo generado por desde C: histograma y codigo
+\include{histograma}
+
+\end{document}

@@ -142,10 +142,11 @@ while					return KEYWORD;
 {LOGICAL}				return OPERATOR;
 {PUNTUACTORS}			return PUNTUACTOR;
 {ACCESS}				return OPERATOR;
-	
+
+<<EOF>>					return EOF;
+
 	/* ERRORES LEXICOS */
 	/*.*				return LEXICALERROR; */
-
 %%
 
 /**

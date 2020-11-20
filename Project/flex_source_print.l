@@ -148,6 +148,7 @@ while		printf("KEYWORD: \"%s\"\n", yytext);
 
 %%
 
+
 int main(int argc, char** argv) {
 	extern FILE *yyin;
 
@@ -157,6 +158,7 @@ int main(int argc, char** argv) {
 	yylex();
 	return 0;
 }
+
 
 int yywrap() {
     return 1; 
