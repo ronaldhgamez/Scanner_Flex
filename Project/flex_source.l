@@ -6,13 +6,16 @@ typedef enum {
     OPERATOR,
     PUNTUACTOR,
     COMMENT,
-    LEXICALERROR
+    LEXICALERROR,
+	PREPROCESSOR
 } TOKEN;
 %}
 
 /* Cualquier caracter en blanco (tabs, salto linea, espacios)*/
 /* si le mando s es white espace?*/
 WHITESPACE 	[ \t]*
+
+PREPROCESSOR #[ ]*(include|define)[ ]*(\".*\"|(<.*>))
 
 	/* CONSTANTES */
 
@@ -77,6 +80,8 @@ ACCESS		\.|->
 	/* Caracteres Blancos printf("WHITESPACE \"%s\"\n", yytext); */
 	
 {WHITESPACE}	/* Ignora espacios en blanco */
+
+{PREPROCESSOR}			return PREPROCESSOR;
 
 	/* Comentarios */
 {COMMENT1}|{COMMENT2} 	return COMMENT;
@@ -143,10 +148,11 @@ while					return KEYWORD;
 {PUNTUACTORS}			return PUNTUACTOR;
 {ACCESS}				return OPERATOR;
 
+	/* ERRORES LEXICOS */
+.						return LEXICALERROR;
+
 <<EOF>>					return EOF;
 
-	/* ERRORES LEXICOS */
-	/*.*				return LEXICALERROR; */
 %%
 
 /**

@@ -1,9 +1,10 @@
 \documentclass[compress]{beamer}
 
 \usepackage[english]{babel}
-\usepackage{pgfplots}   % para mostrar el histograma
-\usepackage{ragged2e}   % Para justificar en beamer; usar \justifying
-\usepackage{lmodern}    % Corrige el error al imprimir >>
+\usepackage{pgfplots}     % para mostrar el histograma
+\usepackage{ragged2e}     % Para justificar en beamer; usar \justifying
+\usepackage{lmodern}      % Corrige el error al imprimir >>
+\usepackage[T1]{fontenc}  % Corrige el error al imprimir <> y otros
 
 \usetheme{Nord}
 % \usetheme[style=light]{Nord}
@@ -32,7 +33,9 @@
 \begin{frame}{Proceso de Scanning}
 
     \justifying
-    Consiste en determinar las diferentes unidades elementales de un programa fuente, es decir identifica los distintos lexemas de un lenguaje. Para este proceso, el scanner busca patrones dentro del fuente que cumplan con instrucciones, operadores, identificadores, constantes, entre otros, del lenguaje que se escanea.
+    Consiste en determinar las diferentes unidades elementales de un programa fuente, es decir, identifica los distintos lexemas de un lenguaje. 
+    Para este proceso, el scanner busca patrones dentro del fuente que cumplan con instrucciones, operadores, identificadores, constantes, entre 
+    otros, del lenguaje que se escanea.
     
     \begin{figure}
         \centering
@@ -44,7 +47,10 @@
 % Descripción de Flex
 \begin{frame}{Flex (Fast Lexical Analyzer)}
     \justifying
-    Flex es una herramienta para generar analizadores léxicos basados en la teoría de autómatas finitos. Para ello, se crea la descripción del escáner en forma de pares de expresiones regulares y código C, llamados reglas. Flex genera un archivo fuente en C llamado "lex.yy.c" que se puede compilar y vincular para producir un ejecutable. Este ejecutable analiza su entrada en busca de ocurrencias de texto que coinciden con las expresiones regulares para cada regla y siempre que encuentra una coincidencia, ejecuta el código C correspondiente.
+    Flex es una herramienta para generar analizadores léxicos basados en la teoría de autómatas finitos. Para ello, se crea la descripción del 
+    escáner en forma de pares de expresiones regulares y código C, llamados reglas. Flex genera un archivo fuente en C llamado "lex.yy.c" que 
+    se puede compilar y vincular para producir un ejecutable. Este ejecutable analiza su entrada en busca de ocurrencias de texto que coinciden 
+    con las expresiones regulares para cada regla y siempre que encuentra una coincidencia, ejecuta el código C correspondiente.
 
     \begin{figure}
         \centering
@@ -53,10 +59,20 @@
     
 \end{frame}
 
-\begin{frame} 
-\centering
+\begin{frame}{Código Después Del Preproceso}
+\justifying\centering
 \huge
-    \textcolor{lime}{\textbf{Programa Fuente Después Del Preproceso}}
+    \textcolor{lime}{\textbf{TOKENS:}} \\ 
+\small
+    \textcolor{cyan}{\textbf{\\KEYWORD}}
+    \textcolor{white}{\textbf{\\IDENTIFIER}}
+    \textcolor{green}{\textbf{\\LITERAL}}
+    \textcolor{yellow}{\textbf{\\OPERATOR}}
+    \textcolor{magenta}{\textbf{\\PUNTUACTOR}}
+    \textcolor{gray}{\textbf{\\COMMENT}}
+    \textcolor{red}{\textbf{\\LEXICALERROR}}
+    \textcolor{orange}{\textbf{\\PREPROCESSOR}}
+    
 \end{frame}
 
 % Codigo generado por desde C: histograma y codigo

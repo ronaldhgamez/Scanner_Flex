@@ -1,79 +1,56 @@
 \justifying \small 
 
-\textcolor{cyan}{typedef} \textcolor{cyan}{enum} \textcolor{magenta}{\{} \textcolor{white}{TELEFONO} 
-\textcolor{magenta}{,} \textcolor{white}{RESIDENCIAL} \textcolor{magenta}{\}} \textcolor{white}{Tipo} 
-\textcolor{magenta}{;} \textcolor{cyan}{struct} \textcolor{white}{Contacto} \textcolor{magenta}{\{} 
-\textcolor{cyan}{char} \textcolor{yellow}{*} \textcolor{white}{tel} \textcolor{magenta}{;} 
-\textcolor{white}{Tipo} \textcolor{white}{tipo} \textcolor{magenta}{;} \textcolor{cyan}{struct} 
-\textcolor{white}{Contacto} \textcolor{yellow}{*} \textcolor{white}{sig} \textcolor{magenta}{;} 
-\textcolor{magenta}{\}} \textcolor{magenta}{;} \textcolor{cyan}{char} \textcolor{yellow}{*} 
-\textcolor{white}{getTipo} \textcolor{magenta}{(} \textcolor{white}{Tipo} \textcolor{white}{tipo} 
-\textcolor{magenta}{)} \textcolor{magenta}{\{} \textcolor{cyan}{switch} \textcolor{magenta}{(} 
-\textcolor{white}{tipo} \textcolor{magenta}{)} \textcolor{magenta}{\{} \textcolor{cyan}{case} 
-\textcolor{white}{TELEFONO} \textcolor{magenta}{:} \textcolor{cyan}{return} \textcolor{lime}{"telefono celular"} 
-\textcolor{magenta}{;} \textcolor{cyan}{case} \textcolor{white}{RESIDENCIAL} \textcolor{magenta}{:} 
-\textcolor{cyan}{return} \textcolor{lime}{"residencial"} \textcolor{magenta}{;} \textcolor{cyan}{default} 
-\textcolor{magenta}{:} \textcolor{cyan}{return} \textcolor{lime}{""} \textcolor{magenta}{;} 
-\textcolor{magenta}{\}} \textcolor{magenta}{\}} \textcolor{cyan}{void} \textcolor{white}{insertar} 
-\textcolor{magenta}{(} \textcolor{cyan}{char} \textcolor{yellow}{*} \textcolor{white}{tel} 
-\textcolor{magenta}{,} \textcolor{white}{Tipo} \textcolor{white}{tipo} \textcolor{magenta}{)} 
-\textcolor{magenta}{\{} \textcolor{cyan}{struct} \textcolor{white}{Contacto} \textcolor{yellow}{*} 
-\textcolor{white}{nuevo} \textcolor{yellow}{=} \textcolor{magenta}{(} \textcolor{cyan}{struct} 
-\textcolor{white}{Contacto} \textcolor{yellow}{*} \textcolor{magenta}{)} \textcolor{white}{malloc} 
-\textcolor{magenta}{(} \textcolor{cyan}{sizeof} \textcolor{magenta}{(} \textcolor{cyan}{struct} 
-\textcolor{white}{Contacto} \textcolor{magenta}{)} \textcolor{magenta}{)} \textcolor{magenta}{;} 
-\textcolor{white}{nuevo} \textcolor{yellow}{->} \textcolor{white}{sig} \textcolor{yellow}{=} 
-\textcolor{white}{NULL} \textcolor{magenta}{;} \textcolor{white}{nuevo} \textcolor{yellow}{->} 
-\textcolor{white}{tel} \textcolor{yellow}{=} \textcolor{magenta}{(} \textcolor{cyan}{char} 
-\textcolor{yellow}{*} \textcolor{magenta}{)} \textcolor{white}{malloc} \textcolor{magenta}{(} 
-\textcolor{lime}{100} \textcolor{magenta}{)} \textcolor{magenta}{;} \textcolor{white}{strcpy} 
-\textcolor{magenta}{(} \textcolor{white}{nuevo} \textcolor{yellow}{->} \textcolor{white}{tel} 
-\textcolor{magenta}{,} \textcolor{white}{tel} \textcolor{magenta}{)} \textcolor{magenta}{;} 
-\textcolor{white}{nuevo} \textcolor{yellow}{->} \textcolor{white}{tipo} \textcolor{yellow}{=} 
-\textcolor{white}{tipo} \textcolor{magenta}{;} \textcolor{cyan}{if} \textcolor{magenta}{(} 
-\textcolor{white}{tipo} \textcolor{yellow}{==} \textcolor{white}{TELEFONO} \textcolor{magenta}{)} 
-\textcolor{magenta}{\{} \textcolor{cyan}{if} \textcolor{magenta}{(} \textcolor{white}{numTelefonicos} 
-\textcolor{yellow}{==} \textcolor{white}{NULL} \textcolor{magenta}{)} \textcolor{white}{numTelefonicos} 
-\textcolor{yellow}{=} \textcolor{white}{nuevo} \textcolor{magenta}{;} \textcolor{cyan}{else} 
-\textcolor{magenta}{\{} \textcolor{white}{nuevo} \textcolor{yellow}{->} \textcolor{white}{sig} 
-\textcolor{yellow}{=} \textcolor{white}{numTelefonicos} \textcolor{magenta}{;} \textcolor{white}{numTelefonicos} 
-\textcolor{yellow}{=} \textcolor{white}{nuevo} \textcolor{magenta}{;} \textcolor{magenta}{\}} 
-\textcolor{magenta}{\}} \textcolor{cyan}{else} \textcolor{cyan}{if} \textcolor{magenta}{(} 
-\textcolor{white}{tipo} \textcolor{yellow}{==} \textcolor{white}{RESIDENCIAL} \textcolor{magenta}{)} 
-\textcolor{magenta}{\{} \textcolor{cyan}{if} \textcolor{magenta}{(} \textcolor{white}{numResidenciales} 
-\textcolor{yellow}{==} \textcolor{white}{NULL} \textcolor{magenta}{)} \textcolor{white}{numResidenciales} 
-\textcolor{yellow}{=} \textcolor{white}{nuevo} \textcolor{magenta}{;} \textcolor{cyan}{else} 
-\textcolor{magenta}{\{} \textcolor{white}{nuevo} \textcolor{yellow}{->} \textcolor{white}{sig} 
-\textcolor{yellow}{=} \textcolor{white}{numResidenciales} \textcolor{magenta}{;} \textcolor{white}{numResidenciales} 
-\textcolor{yellow}{=} \textcolor{white}{nuevo} \textcolor{magenta}{;} \textcolor{magenta}{\}} 
-\textcolor{magenta}{\}} \textcolor{magenta}{\}} 
+\textcolor{orange}{\#include <stdio.h>} \textcolor{gray}{/* Hello 
+ * World program
+ **/} \textcolor{cyan}{void} \textcolor{white}{main} 
+\textcolor{magenta}{(} \textcolor{magenta}{)} \textcolor{magenta}{\{} \textcolor{gray}{// declara una variable "asd"*/} 
+\textcolor{cyan}{int} \textcolor{white}{d} \textcolor{yellow}{=} \textcolor{green}{-.5e-1} 
+\textcolor{yellow}{*} \textcolor{green}{521} \textcolor{magenta}{;} \textcolor{red}{\$} 
+\textcolor{white}{printf} \textcolor{magenta}{(} \textcolor{green}{"resultado: \%d"} \textcolor{magenta}{,} 
+\textcolor{white}{d} \textcolor{magenta}{)} \textcolor{magenta}{;} \textcolor{cyan}{return} 
+\textcolor{green}{0} \textcolor{magenta}{;} \textcolor{magenta}{\}} \textcolor{red}{\$} 
+\textcolor{red}{\textbackslash} \textcolor{cyan}{void} \textcolor{white}{main} \textcolor{magenta}{(} 
+\textcolor{magenta}{)} \textcolor{magenta}{\{} \textcolor{gray}{// declara una variable "asd"*/} \textcolor{cyan}{int} 
+\textcolor{white}{d} \textcolor{yellow}{=} \textcolor{green}{-.5e-1} \textcolor{yellow}{*} 
+\textcolor{green}{521} \textcolor{magenta}{;} \textcolor{red}{\$} \textcolor{white}{printf} 
+\textcolor{magenta}{(} \textcolor{green}{"resultado: \%d"} \textcolor{magenta}{,} \textcolor{white}{d} 
+\textcolor{magenta}{)} \textcolor{magenta}{;} \textcolor{cyan}{return} \textcolor{green}{0} 
+\textcolor{magenta}{;} \textcolor{magenta}{\}} \textcolor{red}{\$} \textcolor{red}{\textbackslash} 
+\textcolor{cyan}{void} \textcolor{white}{main} \textcolor{magenta}{(} \textcolor{magenta}{)} 
+\textcolor{magenta}{\{} \textcolor{gray}{// declara una variable "asd"*/} \textcolor{cyan}{int} \textcolor{white}{d} 
+\textcolor{yellow}{=} \textcolor{green}{-.5e-1} \textcolor{yellow}{*} \textcolor{green}{521} 
+\textcolor{magenta}{;} \textcolor{red}{\$} \textcolor{white}{printf} \textcolor{magenta}{(} 
+\textcolor{green}{"resultado: \%d"} \textcolor{magenta}{,} \textcolor{white}{d} \textcolor{magenta}{)} 
+\textcolor{magenta}{;} \textcolor{cyan}{return} \textcolor{green}{0} \textcolor{magenta}{;} 
+\textcolor{magenta}{\}} \textcolor{red}{\$} 
 
 
 
 \begin{frame}{Histograma Tokens Usados} 
 \begin{tikzpicture}[scale=0.75] % tamaño 
 \begin{axis}[xbar,tick align=outside, 
-    width=11cm,         % largo 
-    height=8cm,         % altura 
-    bar width={11pt},   % grosor linea 
+    width=12.5cm,       % largo 
+    height=9cm,       % altura 
+    bar width={13pt},   % grosor linea 
     enlargelimits=0.08, % cercania a linea 
     nodes near coords, 
     nodes near coords align=horizontal, 
     point meta=x * 1, % The displayed number. 
     xlabel=\textbf{Frecuencia de Tokens usados}, 
-    ytick={0,...,6}, 
+    ytick={0,...,7}, 
     yticklabels={ 
         \textcolor{cyan}{\textbf{KEYWORD}},         % POSITION 0 
         \textcolor{white}{\textbf{IDENTIFIER}},     % POSITION 1 
-        \textcolor{lime}{\textbf{LITERAL}},         % POSITION 2 
+        \textcolor{green}{\textbf{LITERAL}},        % POSITION 2 
         \textcolor{yellow}{\textbf{OPERATOR}},      % POSITION 3 
         \textcolor{magenta}{\textbf{PUNTUACTOR}},   % POSITION 4 
         \textcolor{gray}{\textbf{COMMENT}},         % POSITION 5 
-        \textcolor{NordRed}{\textbf{LEXICALERROR}}  % POSITION 6 
+        \textcolor{red}{\textbf{LEXICALERROR}},     % POSITION 6 
+        \textcolor{orange}{\textbf{PREPROCESSOR}}   % POSITION 7 
     }] 
 \addplot 
-[draw=blue,fill=cyan!45] 
-coordinates {(27,0) (59,1) (4,2) (27,3) (69,4) (0,5) (0,6)}; 
+[draw=teal,fill=teal!75] 
+coordinates {(9,0) (12,1) (12,2) (6,3) (30,4) (4,5) (8,6) (1,7)}; 
 \end{axis}
 \end{tikzpicture}
 \end{frame}

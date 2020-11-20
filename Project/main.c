@@ -11,18 +11,20 @@ typedef enum {
     OPERATOR,
     PUNTUACTOR,
     COMMENT,
-    LEXICALERROR
+    LEXICALERROR,
+    PREPROCESSOR
 } TOKEN;
 */
 
 char * colores[] = {
     "cyan",     // KEYWORD      0
     "white",    // IDENTIFIER   1
-    "lime",     // LITERAL      2
+    "green",     // LITERAL      2
     "yellow",   // OPERATOR     3
     "magenta",  // PUNTUACTOR    4
     "gray",     // COMMENT      5
-    "NordRed"   // LEXICALERROR 6
+    "red",      // LEXICALERROR 6
+    "orange"     // PREPROCESSOR 7
 };
 
 /**
@@ -35,7 +37,8 @@ int histograma[] = {
     0,      // OPERATOR     3
     0,      // PUNTUATOR    4
     0,      // COMMENT      5
-    0       // LEXICALERROR 6
+    0,      // LEXICALERROR 6
+    0       // PREPROCESSOR 7
 };
 
 struct NodoToken {
@@ -53,13 +56,14 @@ struct NodoToken *ListaTokens = NULL;
 
 char* getTipo(TOKEN token) {
     switch (token) {
-        case KEYWORD:       return "KEYWORD";
-        case IDENTIFIER:    return "IDENTIFIER";
-        case LITERAL:       return "LITERAL";
-        case OPERATOR:      return "OPERATOR";
-        case PUNTUACTOR:    return "PUNTUATOR";
-        case COMMENT:       return "COMMENT";
-        default:            return "LEXICALERROR";
+        case KEYWORD:           return "KEYWORD";
+        case IDENTIFIER:        return "IDENTIFIER";
+        case LITERAL:           return "LITERAL";
+        case OPERATOR:          return "OPERATOR";
+        case PUNTUACTOR:        return "PUNTUATOR";
+        case COMMENT:           return "COMMENT";
+        case PREPROCESSOR:      return "PREPROCESSOR";
+        default:                return "LEXICALERROR";
     }
 }
 
@@ -79,7 +83,9 @@ void imprimir() {
     printf("\n%s: %d", getTipo(3), histograma[3]);
     printf("\n%s: %d", getTipo(4), histograma[4]);
     printf("\n%s: %d", getTipo(5), histograma[5]);
-    printf("\n%s: %d\n", getTipo(6), histograma[6]);
+    printf("\n%s: %d", getTipo(6), histograma[6]);
+    printf("\n%s: %d", getTipo(7), histograma[7]);
+    printf("\n\n");
 }
 
 void insertar(TOKEN tok, char *lex, int size) {
@@ -91,6 +97,8 @@ void insertar(TOKEN tok, char *lex, int size) {
     nuevo->size = size;
     nuevo->lexema = (char*)malloc(strlen(lex) * sizeof(char));
     // nuevo->lexema = (char*) malloc(1); /* reserva memoria */
+    //nuevo->lexema = (char*)malloc(sizeof(char)*50);
+    //nuevo->lexema = (char*)calloc(strlen(lex), sizeof(char));
     strcpy(nuevo->lexema, lex);
     
 
@@ -156,6 +164,7 @@ char *str_replace(char *orig, char *rep, char *with) {
 
 // Remplaza cualquier caractares especial de LaTex para poderlo imprimir en beamer
 char *preparar(char *str) {
+    str = str_replace(str, "\\", "\\textbackslash"); // Debe ser primero para evitar errores
     str = str_replace(str, "{", "\\{");
     str = str_replace(str, "}", "\\}");
     str = str_replace(str, "&", "\\&");
@@ -188,7 +197,6 @@ void scanner() {
         histograma[token] += 1; // Suma la aparicion del token
         token = getNextToken();
     }
-    printf("\ntoken: %d\n\n", token);
 }
 
 /**
@@ -225,28 +233,29 @@ void fuenteLatex() {
     fprintf(temp, "\\begin{frame}{Histograma Tokens Usados} \n");
     fprintf(temp, "\\begin{tikzpicture}[scale=0.75] %% tamaño \n");
     fprintf(temp, "\\begin{axis}[xbar,tick align=outside, \n");
-    fprintf(temp, "    width=11cm,         %% largo \n");
-    fprintf(temp, "    height=8cm,         %% altura \n");
-    fprintf(temp, "    bar width={11pt},   %% grosor linea \n");
+    fprintf(temp, "    width=12.5cm,       %% largo \n");
+    fprintf(temp, "    height=9cm,       %% altura \n");
+    fprintf(temp, "    bar width={13pt},   %% grosor linea \n");
     fprintf(temp, "    enlargelimits=0.08, %% cercania a linea \n");
     fprintf(temp, "    nodes near coords, \n");
     fprintf(temp, "    nodes near coords align=horizontal, \n");
     fprintf(temp, "    point meta=x * 1, %% The displayed number. \n");
     fprintf(temp, "    xlabel=\\textbf{Frecuencia de Tokens usados}, \n");
-    fprintf(temp, "    ytick={0,...,6}, \n");
+    fprintf(temp, "    ytick={0,...,7}, \n");
     fprintf(temp, "    yticklabels={ \n");
     fprintf(temp, "        \\textcolor{cyan}{\\textbf{KEYWORD}},         %% POSITION 0 \n");
     fprintf(temp, "        \\textcolor{white}{\\textbf{IDENTIFIER}},     %% POSITION 1 \n");
-    fprintf(temp, "        \\textcolor{lime}{\\textbf{LITERAL}},         %% POSITION 2 \n");
+    fprintf(temp, "        \\textcolor{green}{\\textbf{LITERAL}},        %% POSITION 2 \n");
     fprintf(temp, "        \\textcolor{yellow}{\\textbf{OPERATOR}},      %% POSITION 3 \n");
     fprintf(temp, "        \\textcolor{magenta}{\\textbf{PUNTUACTOR}},   %% POSITION 4 \n");
     fprintf(temp, "        \\textcolor{gray}{\\textbf{COMMENT}},         %% POSITION 5 \n");
-    fprintf(temp, "        \\textcolor{NordRed}{\\textbf{LEXICALERROR}}  %% POSITION 6 \n");
+    fprintf(temp, "        \\textcolor{red}{\\textbf{LEXICALERROR}},     %% POSITION 6 \n");
+    fprintf(temp, "        \\textcolor{orange}{\\textbf{PREPROCESSOR}}   %% POSITION 7 \n");
     fprintf(temp, "    }] \n");
     fprintf(temp, "\\addplot \n");
-    fprintf(temp, "[draw=blue,fill=cyan!45] \n");
-    fprintf(temp, "coordinates {(%d,0) (%d,1) (%d,2) (%d,3) (%d,4) (%d,5) (%d,6)}; \n", histograma[0], 
-    histograma[1], histograma[2], histograma[3], histograma[4], histograma[5], histograma[6]);
+    fprintf(temp, "[draw=teal,fill=teal!75] \n");
+    fprintf(temp, "coordinates {(%d,0) (%d,1) (%d,2) (%d,3) (%d,4) (%d,5) (%d,6) (%d,7)}; \n", histograma[0], 
+    histograma[1], histograma[2], histograma[3], histograma[4], histograma[5], histograma[6], histograma[7]);
     fprintf(temp, "\\end{axis}\n");
     fprintf(temp, "\\end{tikzpicture}\n");
     fprintf(temp, "\\end{frame}\n");
@@ -260,9 +269,16 @@ int main(int argc, char** argv) {
         printf("\nAviso: No se ha recibido ningun fuente de C desde la linea de comandos. Ingrese un fuente para comenzar el analisis.\n\n");
         return -1;
     }
-    if (argc != 2) {
-        printf("\nIngrese solo el nombre del archivo C.\n\n");
-        return -1;
+
+    // hacer preproceso
+    int preproceso = 0;
+    if (argc > 2) {
+        if(argv[2] == "p")
+            preproceso = 1; // Para enviar el archivo a preproceso
+        else {
+            printf("\nComando %s no valido.\n\n", argv[2]);
+            return -1;
+        }
     }
 
     // Copia del nombre del archivo
@@ -294,18 +310,20 @@ int main(int argc, char** argv) {
     yyin = fopen(argv[1], "r");
 
     scanner();
-    imprimir();
     fuenteLatex();
-    
+    fclose(yyin);
+
     // comando para generar el pdf
     system("pdflatex latex.tex");
-    // Elimina archivos basura
+    // Elimina archivos temporales basura
     system("rm histograma.aux latex.aux latex.log");
     system("rm latex.nav latex.out latex.snm latex.toc");
+
+    imprimir();
+
     // abrir el PDF generado en pantalla completa
     system("evince -f latex.pdf");
-    fclose(yyin);
-    printf("\n");
+    
 
     return 0;
 }
