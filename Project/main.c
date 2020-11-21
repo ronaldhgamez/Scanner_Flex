@@ -3,7 +3,7 @@
 #include <string.h>
 #include "lex.yy.c"     /* El Scanner */
 
-/* Ya definido dentro de flex_source.l
+/* Ya definido dentro de lex.yy.c
 typedef enum {
     KEYWORD,
     IDENTIFIER,
@@ -19,12 +19,12 @@ typedef enum {
 char * colores[] = {
     "cyan",     // KEYWORD      0
     "white",    // IDENTIFIER   1
-    "green",     // LITERAL      2
+    "green",    // LITERAL      2
     "yellow",   // OPERATOR     3
     "magenta",  // PUNTUACTOR    4
     "gray",     // COMMENT      5
     "red",      // LEXICALERROR 6
-    "orange"     // PREPROCESSOR 7
+    "orange"    // PREPROCESSOR 7
 };
 
 /**
@@ -99,8 +99,8 @@ void insertar(TOKEN tok, char *lex, int size) {
     // nuevo->lexema = (char*) malloc(1); /* reserva memoria */
     //nuevo->lexema = (char*)malloc(sizeof(char)*50);
     //nuevo->lexema = (char*)calloc(strlen(lex), sizeof(char));
-    strcpy(nuevo->lexema, lex);
-    
+    //strcpy(nuevo->lexema, lex);
+    nuevo->lexema = lex;
 
     /* inserción en la lista */
     if (ListaTokens == NULL)
@@ -164,7 +164,7 @@ char *str_replace(char *orig, char *rep, char *with) {
 
 // Remplaza cualquier caractares especial de LaTex para poderlo imprimir en beamer
 char *preparar(char *str) {
-    str = str_replace(str, "\\", "\\textbackslash"); // Debe ser primero para evitar errores
+    str = str_replace(str, "\\", "\\textbackslash "); // Debe ser primero para evitar errores
     str = str_replace(str, "{", "\\{");
     str = str_replace(str, "}", "\\}");
     str = str_replace(str, "&", "\\&");
@@ -172,8 +172,8 @@ char *preparar(char *str) {
     str = str_replace(str, "$", "\\$");
     str = str_replace(str, "#", "\\#");
     str = str_replace(str, "_", "\\_");
-    str = str_replace(str, "~", "\\textasciitilde");
-    str = str_replace(str, "^", "\\textasciicircum");
+    str = str_replace(str, "~", "\\textasciitilde ");
+    str = str_replace(str, "^", "\\textasciicircum ");
     return str;
 }
 
@@ -213,15 +213,15 @@ void fuenteLatex() {
     fprintf(temp, "\\justifying \\small \n\n");
 
     struct NodoToken *aux = ListaTokens;
-    int i = 1;
+    ////int i = 1;
     while(aux != NULL) {
         // \textcolor{Aqui va el Color}{Aquí va el Texto}
         fprintf(temp, "\\textcolor{%s}{%s} ", colores[aux->token], aux->lexema);
-        if(i == 4) {
+        ////if(i == 4) {
             fprintf(temp, "\n");
-            i = 0;
-        }
-        i++;
+            ///i = 0;
+        ////}
+        ///i++;
         aux = aux->sig;
     }
 
@@ -322,7 +322,7 @@ int main(int argc, char** argv) {
     imprimir();
 
     // abrir el PDF generado en pantalla completa
-    system("evince -f latex.pdf");
+    system("evince latex.pdf");
     
 
     return 0;
