@@ -1,89 +1,129 @@
 \justifying \small 
 
-\textcolor{orange}{\#define \_\_GLIBC\_INTERNAL\_STARTING\_HEADER\_IMPLEMENTATION} 
-\textcolor{orange}{\#include <bits/libc-header-start.h>} 
-\textcolor{white}{\_\_BEGIN\_DECLS} 
-\textcolor{orange}{\#define \_\_need\_size\_t} 
-\textcolor{orange}{\#define \_\_need\_NULL} 
-\textcolor{orange}{\#include <stddef.h>} 
-\textcolor{orange}{\#define \_\_need\_\_\_va\_list} 
-\textcolor{orange}{\#include <stdarg.h>} 
-\textcolor{orange}{\#include <bits/types.h>} 
-\textcolor{orange}{\#include <bits/types/\_\_fpos\_t.h>} 
-\textcolor{orange}{\#include <bits/types/\_\_fpos64\_t.h>} 
-\textcolor{orange}{\#include <bits/types/\_\_FILE.h>} 
-\textcolor{orange}{\#include <bits/types/FILE.h>} 
-\textcolor{orange}{\#include <bits/types/struct\_FILE.h>} 
-\textcolor{orange}{\#ifdef \_\_USE\_GNU} 
-\textcolor{orange}{\# include <bits/types/cookie\_io\_functions\_t.h>} 
-\textcolor{orange}{\#endif} 
-\textcolor{orange}{\#define \_IOFBF 0		} 
-\textcolor{orange}{\#define \_IOLBF 1		} 
-\textcolor{orange}{\#define \_IONBF 2		} 
-\textcolor{orange}{\#define BUFSIZ 8192} 
-\textcolor{orange}{\#define EOF (-1)} 
-\textcolor{orange}{\#define SEEK\_SET	0	} 
-\textcolor{orange}{\#define SEEK\_CUR	1	} 
-\textcolor{orange}{\#define SEEK\_END	2	} 
-\textcolor{orange}{\#ifdef \_\_USE\_GNU} 
-\textcolor{orange}{\# define SEEK\_DATA	3	} 
-\textcolor{orange}{\# define SEEK\_HOLE	4	} 
-\textcolor{orange}{\#endif} 
-\textcolor{orange}{\#if defined \_\_USE\_MISC || defined \_\_USE\_XOPEN} 
-\textcolor{orange}{\# define P\_tmpdir	"/tmp"} 
-\textcolor{orange}{\#endif} 
-\textcolor{orange}{\#include <bits/stdio\_lim.h>} 
-\textcolor{cyan}{extern} 
-\textcolor{white}{FILE} 
-\textcolor{yellow}{*} 
-\textcolor{white}{stdin} 
-\textcolor{magenta}{;} 
-\textcolor{cyan}{extern} 
-\textcolor{white}{FILE} 
-\textcolor{yellow}{*} 
-\textcolor{white}{stdout} 
-\textcolor{magenta}{;} 
-\textcolor{cyan}{extern} 
-\textcolor{white}{FILE} 
-\textcolor{yellow}{*} 
-\textcolor{white}{stderr} 
-\textcolor{magenta}{;} 
-\textcolor{orange}{\#define stdin stdin} 
-\textcolor{orange}{\#define stdout stdout} 
-\textcolor{orange}{\#define stderr stderr} 
-\textcolor{orange}{\#if defined \_\_USE\_MISC || defined \_\_USE\_XOPEN} 
-\textcolor{cyan}{extern} 
-\textcolor{cyan}{char} 
-\textcolor{yellow}{*} 
-\textcolor{white}{tempnam} 
-\textcolor{magenta}{(} 
-\textcolor{cyan}{const} 
-\textcolor{cyan}{char} 
-\textcolor{yellow}{*} 
-\textcolor{white}{\_\_dir} 
-\textcolor{magenta}{,} 
-\textcolor{cyan}{const} 
-\textcolor{cyan}{char} 
-\textcolor{yellow}{*} 
-\textcolor{white}{\_\_pfx} 
-\textcolor{magenta}{)} 
-\textcolor{white}{\_\_THROW} 
-\textcolor{white}{\_\_attribute\_malloc\_\_} 
-\textcolor{white}{\_\_wur} 
-\textcolor{magenta}{;} 
-\textcolor{orange}{\#endif} 
 \textcolor{orange}{\#include <stdio.h>} 
-\textcolor{orange}{\#define DIRECTIVA "Hyderabad" } 
+\textcolor{orange}{\#include "octal\_hex\_2.c"} 
+\textcolor{gray}{/**
+ * Probando numeros reales, octales
+ * y hexadecimales
+ * @return
+ */} 
 \textcolor{cyan}{int} 
 \textcolor{white}{main} 
 \textcolor{magenta}{(} 
 \textcolor{magenta}{)} 
 \textcolor{magenta}{\{} 
+\textcolor{gray}{// Declaracion de un numero real} 
+\textcolor{cyan}{float} 
+\textcolor{white}{\_n} 
+\textcolor{yellow}{=} 
+\textcolor{green}{-.5e+12} 
+\textcolor{magenta}{;} 
 \textcolor{white}{printf} 
 \textcolor{magenta}{(} 
-\textcolor{green}{"\%s "} 
+\textcolor{green}{"\%f \textbackslash n"} 
 \textcolor{magenta}{,} 
-\textcolor{white}{DIRECTIVA} 
+\textcolor{white}{\_n} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{\_n} 
+\textcolor{yellow}{*=} 
+\textcolor{green}{2.e-1} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{/* multiplicado por  */} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"\%f \textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{\_n} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{cyan}{int} 
+\textcolor{white}{hexadecimal} 
+\textcolor{yellow}{=} 
+\textcolor{green}{0x31f} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{/* representa 799 en decimal */} 
+\textcolor{cyan}{int} 
+\textcolor{white}{hexadecimal\_2} 
+\textcolor{yellow}{=} 
+\textcolor{green}{0X1a2} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{/* representa 418 en decimal */} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"hexadecimal 1: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{hexadecimal} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"hexadecimal 2: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{hexadecimal\_2} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{hexadecimal\_2} 
+\textcolor{yellow}{++} 
+\textcolor{magenta}{;} 
+\textcolor{white}{hexadecimal} 
+\textcolor{yellow}{+=} 
+\textcolor{white}{hexadecimal\_2} 
+\textcolor{magenta}{;} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"resultado: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{hexadecimal} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{// Salida 916} 
+\textcolor{cyan}{int} 
+\textcolor{white}{octal\_1} 
+\textcolor{yellow}{=} 
+\textcolor{green}{023} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{/* representa 19 
+    en decimal */} 
+\textcolor{cyan}{int} 
+\textcolor{white}{octal\_2} 
+\textcolor{yellow}{=} 
+\textcolor{green}{0176} 
+\textcolor{magenta}{;} 
+\textcolor{gray}{/* representa 126
+    en decimal */} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"octal 1: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{octal\_1} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"octal 2: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{white}{octal\_2} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{printf} 
+\textcolor{magenta}{(} 
+\textcolor{green}{"resultado: \%d\textbackslash n"} 
+\textcolor{magenta}{,} 
+\textcolor{magenta}{(} 
+\textcolor{white}{octal\_1} 
+\textcolor{yellow}{+} 
+\textcolor{white}{octal\_2} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{multiplicar} 
+\textcolor{magenta}{(} 
+\textcolor{magenta}{)} 
+\textcolor{magenta}{;} 
+\textcolor{white}{piramide} 
+\textcolor{magenta}{(} 
+\textcolor{green}{10} 
 \textcolor{magenta}{)} 
 \textcolor{magenta}{;} 
 \textcolor{cyan}{return} 
@@ -118,7 +158,7 @@
     }] 
 \addplot 
 [draw=teal,fill=teal!75] 
-coordinates {(11,0) (16,1) (2,2) (6,3) (16,4) (0,5) (0,6) (39,7)}; 
+coordinates {(7,0) (29,1) (16,2) (9,3) (53,4) (8,5) (0,6) (2,7)}; 
 \end{axis}
 \end{tikzpicture}
 \end{frame}

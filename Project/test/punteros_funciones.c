@@ -1,31 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "funciones.c" /* INCLUSION DEL ARCHIVO */
 
-int suma(int x, int y) {
-    int z = x + y;
-    return z;
-}
-
-int resta(int x, int y) {
-    int z = x - y;
-    return z;
-}
-
-int esOperando (char p) {
-    if ((p == '0') || (p == '1') || (p == '2') || (p == '3') || (p == '4') ||
-        (p == '5') || (p == '6') || (p == '7') || (p == '8') || (p == '9')) {
-        return 1;
-    }
-    return 0;
-}
-
-int esOperador (char p) {
-    if ((p == '+') || (p == '-') || (p == '*') || (p == '/')) {
-        return 1;
-    }
-    return 0;
-}
 
 typedef enum {OPERANDO, OPERADOR} Tipo;
 
@@ -96,75 +73,6 @@ void mostrarPila(struct Pila *p) {
     }
     printf("\nFin de pila\n");
 }
-
-/*
-char* CrearExpPostfijo (char *exp) {
-    char expCopia[100];
-    strcpy(expCopia, exp);
-
-    char postfijo[100]; // Expresion postfijo a retornar.
-    strcpy(postfijo, "");
-
-    // Crear pila para meter operadores.
-    struct Pila *pila = crearPila();
-
-    int i = 0;
-    while(expCopia[i]) { // Recorrer expresion y crear postfijo.
-
-        if (esOperador(expCopia[i]) == 1) {
-            while (isEmpty(pila) == 0) {
-                strcat(postfijo, ",");
-                //postfix += ",";
-
-                strcat(postfijo, top(pila)->dato);
-                //postfix += pila.top();
-
-                pila = pop(pila);
-                //pila.pop();
-            }
-
-            strcat(postfijo, ",");
-            // postfix += ",";
-
-            pila = push(pila, &expCopia[i]);
-            // pila.push(expresion[i]);
-        }
-            // VALIDA SI EL CHAR ES UN OPERANDO(NUMERO).
-        else if(esOperando(expCopia[i])) {
-            strncpy(postfijo, expCopia, 1);
-            //postfix +=expresion[i];
-        } else if (expCopia[i] == '(') {
-            pila = push(pila, &expCopia[i]);
-            //pila.push(expresion[i]);
-        } else if (expCopia[i] == ')') {
-            // while(!pila.empty() && pila.top() !=  '(')
-            while(isEmpty(pila) == 0 && strcmp(top(pila)->dato, "(") != 0) {
-                strcat(postfijo, ",");
-                // postfix+= ",";
-                strcat(postfijo, top(pila)->dato);
-                // postfix += pila.top();
-                pila = pop(pila);
-                // pila.pop();
-            }
-            pila = pop(pila);
-        }
-        i++;
-    }
-
-    while(isEmpty(pila) == 0)
-    {
-        strcat(postfijo, ",");
-        // postfix+= ",";
-        strcat(postfijo, top(pila)->dato);
-        // postfix += pila.top();
-        pila = pop(pila);
-        // pila.pop();
-    }
-    // Lo hice así porque dio problemas...
-    char *r = (char*) malloc(1);
-    strcpy(r, postfijo);
-    return r;
-}*/
 
 int calculo (int x, int y, int (funcion)(int, int)) {
     int z = funcion(x, y);

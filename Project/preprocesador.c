@@ -104,18 +104,18 @@ int preprocesar (char * file) {
 
                 // BUSCA EN EL DIRECTORIO ACTUAL
                 if (carpetaActual == 1) {
-                    printf("buffer 2: %s \n", buffer2);
+                    //printf("buffer 2: %s \n", buffer2);
                     preprocesar(buffer2);     // LLAMADA RECURSIVA CON LA DIRECTIVA
                 } else {
                     //printf("buffer 1: %s \n\n", buffer);
-                    //preprocesar(buffer);
-
-                    // POR EL MOMENTO LA INCLUYE LITERALMETE...
-                    i = estado;
-                    esIncludeODef = 0;
-                    espacio = 1;
-
-                    /* EN PROCESO */
+                    int succesful = preprocesar(buffer);
+                    if (succesful == -1) {
+                        // UNICAMENTE INCLUYE LOS QUE ESTÁN EN /usr/incluye LAS DEMAS LAS INCLUYE LITERALMENTE
+                        i = estado;
+                        esIncludeODef = 0;
+                        espacio = 1;
+                        ////// FALTA CORREGIR ESO
+                    }
                 }
 
             } else if(line[i] == 'd') {    // VALIDA SI ES UNA DIRECTIVA DEFINE
@@ -123,13 +123,13 @@ int preprocesar (char * file) {
                 i = estado;
                 esIncludeODef = 0;
                 espacio = 1;
-
                 /* EN PROCESO */
 
             } else {
                 // CUALQUIER OTRA DIRECTIVA DIREFENTE A INCLUDE O DEFINE SE ESCRIBE LITERALMENTE
                 i = estado;
                 esIncludeODef = 0;  // INDICAMOS QUE NO ES NI INCLUDE NI DEFINE
+                espacio = 1;
             }
             if (esIncludeODef)
                 continue;   // SIGUIENTE LINEA DEL ARCHIVO
@@ -137,7 +137,9 @@ int preprocesar (char * file) {
 
         int bool = 0;
         while (line[i] != '\0') {
+            
             bool = 0;
+            
             // IGNORA COMENTARIOS SEGUIDOS DE UNA INSTRUCCION
             if (line[i] == '/' && line[i+1] == '/') // <- POR EJEMPLO ESTE
                 break;
@@ -178,8 +180,9 @@ int preprocesar (char * file) {
                 // Ignora espacios en blanco que queden despues
                 while (line[i]==' ')
                     i++;
-                if (line[i]=='\0')
+                if (line[i]=='\0') {
                     bool = 1;
+                }
                 continue;
             }
 

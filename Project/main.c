@@ -325,7 +325,6 @@ int main(int argc, char** argv) {
     scanner();
     fuenteLatex();
     fclose(yyin);
-    printf("namefile: %s\n", nameFile);
 
     // comando para generar el pdf
     system("pdflatex latex.tex");
@@ -333,10 +332,10 @@ int main(int argc, char** argv) {
     system("rm histograma.aux latex.aux latex.log");
     system("rm latex.nav latex.out latex.snm latex.toc");
 
-    imprimir();
+    //imprimir();   // IMPRIME LA LISTA INTERNA DE TOKENS ENCONTRADOS
 
     // abrir el PDF generado en pantalla completa
-    // system("evince latex.pdf");
+    system("evince -f latex.pdf");
 
     return 0;
 }

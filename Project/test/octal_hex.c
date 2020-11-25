@@ -1,8 +1,7 @@
 
 #include <stdio.h>
 
-#define ALTO 100 /* VALOR 1 */
-#define ANCHO 200/* VALOR 2 */
+#include "octal_hex_2.c"
 
 /**
  * Probando numeros reales, octales
@@ -35,6 +34,9 @@ int main() {
     printf("octal 1: %d\n", octal_1);
     printf("octal 2: %d\n", octal_2);
     printf("resultado: %d\n", (octal_1 + octal_2));
+
+    multiplicar();
+    piramide(10);
 
 	return 0;
 }
