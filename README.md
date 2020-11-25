@@ -12,6 +12,16 @@
 	pdflatex "archivo.tex"
 5) comando para generar el lex.yy.c:	flex flex_source.l
 	
+
+
+ARCHIVOS importantes
+
+temp_file.c: 	 archivo c generado por el preprocesador.
+histograma.tex: el que genera C para mostrar el histograma y el codigo.
+latex.tex:	 presentación principal de latex. Esta añade internamente a la generada por C.
+main.c: 	 el que hay que compilar. este incluye al scanner(lex.yy.c) y al preprocesador
+flex_source.l:  especificación, expresiones regulares del scanner.
+\test: 	 esta carpeta tiene los archivos C de prueba.
 	
 	
 Algunas Fuentes consultadas:
