@@ -1,5 +1,5 @@
 
-#include <stdio.h>
+//#include <stdio.h>
 
 #include "octal_hex_2.c"
 

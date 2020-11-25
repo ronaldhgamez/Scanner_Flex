@@ -335,7 +335,7 @@ int main(int argc, char** argv) {
     //imprimir();   // IMPRIME LA LISTA INTERNA DE TOKENS ENCONTRADOS
 
     // abrir el PDF generado en pantalla completa
-    system("evince -f latex.pdf");
+    system("evince --presentation latex.pdf");
 
     return 0;
 }
