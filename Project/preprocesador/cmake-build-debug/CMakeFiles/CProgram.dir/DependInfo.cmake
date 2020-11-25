@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "/home/ronaldhg/Escritorio/CProgram/preprocesador.c" "/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/CMakeFiles/CProgram.dir/preprocesador.c.o"
+  "/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/preprocesador.c" "/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/CMakeFiles/CProgram.dir/preprocesador.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

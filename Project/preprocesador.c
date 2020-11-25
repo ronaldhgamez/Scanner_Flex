@@ -25,7 +25,7 @@ FILE *tempFile = NULL;  // CODIGO FUENTE TEMPORAL
 void insertIntoTempFile(char c) {
     // Crea el archivo temporal donde se almacenara el nuevo fuente del programa preprocesado
     if(tempFile == NULL)
-        tempFile = fopen("/home/ronaldhg/Escritorio/Proyecto_Flex/Project/temp_file.c", "w");
+        tempFile = fopen("temp_file.c", "w");
 
     // Write the instruction into temporal file
     fputc(c, tempFile);
@@ -36,7 +36,7 @@ void insertIntoTempFile(char c) {
  * @param file
  * @return
  */
-int preprocesador (char * file) {
+int preprocesar (char * file) {
 
     FILE *arc_procesado = NULL;  // CODIGO FUENTE ORIGINAL
 
@@ -45,6 +45,7 @@ int preprocesador (char * file) {
         printf("No se encuentra la ruta del archivo: %s\n", file);
         return -1;
     }
+
 
     char line [250];
     do{
@@ -89,7 +90,7 @@ int preprocesador (char * file) {
                 }
 
                 char buffer[] = "/usr/include/";
-                char buffer2[] = "/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/";
+                char buffer2[] = "/home/ronaldhg/Escritorio/Proyecto_Flex/Project/test/";
 
                 i++;
                 // COPIA DEL NOMBRE DEL FICHERO A INCLUIR
@@ -104,10 +105,10 @@ int preprocesador (char * file) {
                 // BUSCA EN EL DIRECTORIO ACTUAL
                 if (carpetaActual == 1) {
                     printf("buffer 2: %s \n", buffer2);
-                    preprocesador(buffer2);     // LLAMADA RECURSIVA CON LA DIRECTIVA
+                    preprocesar(buffer2);     // LLAMADA RECURSIVA CON LA DIRECTIVA
                 } else {
                     //printf("buffer 1: %s \n\n", buffer);
-                    //preprocesador(buffer);
+                    //preprocesar(buffer);
 
                     // POR EL MOMENTO LA INCLUYE LITERALMETE...
                     i = estado;
@@ -201,8 +202,9 @@ int preprocesador (char * file) {
     return 1;
 }
 
-int main() {
-    preprocesador("/home/ronaldhg/Escritorio/Proyecto_Flex/Project/test/practica.c");
+int preprocesador(char * file) {
+    int n = preprocesar(file);
     fclose(tempFile);
-    return 0;
+    tempFile = NULL;
+    return n;
 }

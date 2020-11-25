@@ -2,13 +2,11 @@
 #include <stdio.h>
 
 #define ALTO 100 /* VALOR 1 */
-#define ANCHO 200
+#define ANCHO 200/* VALOR 2 */
 
 /**
  * Probando numeros reales, optales
-
-y hexadecimales
-
+ * y hexadecimales
  * @return
  */
 int main() {
@@ -32,4 +30,3 @@ int main() {
 
 	return 0;
 }
-/*ASDF*/

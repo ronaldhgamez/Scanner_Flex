@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug"/>
+				<Option working_dir="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug"/>
+				<Option working_dir="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug"/>
+				<Option working_dir="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="CProgram">
-				<Option output="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/CProgram" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug"/>
+				<Option output="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/CProgram" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -50,15 +50,15 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 CProgram"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 CProgram"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="CProgram/fast">
-				<Option output="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/CProgram" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/ronaldhg/Escritorio/CProgram/cmake-build-debug"/>
+				<Option output="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/CProgram" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -69,17 +69,17 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 CProgram/fast"/>
-					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/CProgram/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 CProgram/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/ronaldhg/Escritorio/CProgram/preprocesador.c">
+		<Unit filename="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/preprocesador.c">
 			<Option target="CProgram"/>
 		</Unit>
-		<Unit filename="/home/ronaldhg/Escritorio/CProgram/CMakeLists.txt">
+		<Unit filename="/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

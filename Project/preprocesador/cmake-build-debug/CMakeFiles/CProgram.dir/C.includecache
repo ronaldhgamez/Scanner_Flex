@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ronaldhg/Escritorio/CProgram/preprocesador.c
+/home/ronaldhg/Escritorio/Proyecto_Flex/Project/preprocesador/preprocesador.c
 stdio.h
 -
 string.h

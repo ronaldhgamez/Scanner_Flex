@@ -1,7 +1,8 @@
 #include <stdio.h>
-#include <stdlib.h>     /* malloc */
+#include <stdlib.h>         /* malloc */
 #include <string.h>
-#include "lex.yy.c"     /* El Scanner */
+#include "lex.yy.c"         /* El Scanner */
+#include "preprocesador.c"  /* Preprocesador */
 
 /* Ya definido dentro de lex.yy.c
 typedef enum {
@@ -270,17 +271,6 @@ int main(int argc, char** argv) {
         return -1;
     }
 
-    // hacer preproceso
-    int preproceso = 0;
-    if (argc > 2) {
-        if(argv[2] == "p")
-            preproceso = 1; // Para enviar el archivo a preproceso
-        else {
-            printf("\nComando %s no valido.\n\n", argv[2]);
-            return -1;
-        }
-    }
-
     // Copia del nombre del archivo
     char *nameFile = (char*) malloc(100);
     strcpy(nameFile, argv[1]);
@@ -297,33 +287,56 @@ int main(int argc, char** argv) {
         printf("\nError: El archivo con nombre %s no existe. Intente nuevamente.\n\n", nameFile);
         return -1;
     }
-
     fclose(file);
 
-    /* preproceso deberia crearme un nuevo file */
+    if(argc == 3) {
+        
+    }
 
-    // yylex reads from the file stored in variable yyin
-    // It is up to you to open a file for reading and store it into yyin before you call yylex.
+    // SI LE ENVIAMOS EL COMANDO n PODEMOS EVITAR QUE SE HAGA EL PREPROCESO
+    // POR DEFECTO SI LO PREPROCESARÁ
+    int preproceso = 0;
+    if (argc == 3) {
+        if(argv[2][0] == 'n')
+            preproceso = 1;
+        else {
+            printf("\nComando %s no valido.\n\n", argv[2]);
+            return -1;
+        }
+    }
+
+    // yylex LEE EL ARCHIVO ALMACENADO EN yyin
+    // DEPENDE DE UD ABRIR EL ARCHIVO PARA LEERLO Y ALMACENARLO EN yyin ANTES DE LLAMAR A yylex.
     extern FILE *yyin;
+    
+    if(preproceso) {
+        // NO PREPROCESA EL ARCHIVO, LO ABRE DIRECTAMENTE.
+        yyin = fopen(nameFile, "r");
+    } else {
+        // PREPROCESA EL ARCHIVO PRIMERO
+        int bool = preprocesador(nameFile);
+        if (bool == -1)
+            return -1;
+        // EL PASO ANTERIOR GENERA UN ARCHIVO TEMPORAL EL ES LA ENTRADA AL SCANNER.
+        yyin = fopen("temp_file.c", "r");
 
-    /* open the source file in read mode */
-    yyin = fopen(argv[1], "r");
-
+    }
+    
     scanner();
     fuenteLatex();
     fclose(yyin);
+    printf("namefile: %s\n", nameFile);
 
     // comando para generar el pdf
-    system("pdflatex latex.tex");
+    //system("pdflatex latex.tex");
     // Elimina archivos temporales basura
-    system("rm histograma.aux latex.aux latex.log");
-    system("rm latex.nav latex.out latex.snm latex.toc");
+    //system("rm histograma.aux latex.aux latex.log");
+    //system("rm latex.nav latex.out latex.snm latex.toc");
 
-    imprimir();
+    //imprimir();
 
     // abrir el PDF generado en pantalla completa
-    system("evince latex.pdf");
-    
+    //system("evince latex.pdf");
 
     return 0;
 }
