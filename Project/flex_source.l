@@ -15,7 +15,8 @@ typedef enum {
 /* si le mando s es white espace?*/
 WHITESPACE 	[ \t]*
 
-PREPROCESSOR #[ ]*(include|define)[ ]*(\".*\"|(<.*>))
+INCLUDE 	#[ \t]*include[ \t]*(\".*\"|(<.*>))
+DEFINE		#[ \t]*define[ \t]+{ID}([^\n]+)?
 
 	/* CONSTANTES */
 
@@ -35,7 +36,7 @@ CONST_REAL3	((\+?-?)|(-?\+?))?[0-9]+((e|E)(\+|-)?[0-9]+)?
 OCTAL		^(0[0-7]{1,11})$
 
 /* Base 16: Comienzan con 0x o 0X seguido de uno o mas numeros del 0-9 o de a-f */
-HEXADECIMAL	^(0(X|x)[0-9a-fA-F]+)$
+HEXADECIMAL	0(X|x)[0-9a-fA-F]+
 
 /* Secuencia de letras, digitos, y underscores. Primer caracter no puede ser digito. Puede nombrarse "_" solamente. */
 ID      	(_*[a-zA-Z]|_[0-9a-zA-Z]*)[a-zA-Z0-9_]*
@@ -81,7 +82,12 @@ ACCESS		\.|->
 	
 {WHITESPACE}	/* Ignora espacios en blanco */
 
-{PREPROCESSOR}			return PREPROCESSOR;
+	/* DIRECTIVAS DEL PREPROCESADOR */
+{INCLUDE}|{DEFINE}						return PREPROCESSOR;
+#[ \t]*(else|endif)						return PREPROCESSOR;
+#[ \t]*(error|message)[ \t]*{CHARS}		return PREPROCESSOR;
+#[ \t]*(ifdef|ifndef|undef)[ \t]+{ID}	return PREPROCESSOR;
+#[ \t]*(if|elif)[ \t]+([^\n]+)?			return PREPROCESSOR;
 
 	/* Comentarios */
 {COMMENT1}|{COMMENT2} 	return COMMENT;

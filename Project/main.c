@@ -328,15 +328,15 @@ int main(int argc, char** argv) {
     printf("namefile: %s\n", nameFile);
 
     // comando para generar el pdf
-    //system("pdflatex latex.tex");
+    system("pdflatex latex.tex");
     // Elimina archivos temporales basura
-    //system("rm histograma.aux latex.aux latex.log");
-    //system("rm latex.nav latex.out latex.snm latex.toc");
+    system("rm histograma.aux latex.aux latex.log");
+    system("rm latex.nav latex.out latex.snm latex.toc");
 
-    //imprimir();
+    imprimir();
 
     // abrir el PDF generado en pantalla completa
-    //system("evince latex.pdf");
+    // system("evince latex.pdf");
 
     return 0;
 }
