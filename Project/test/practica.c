@@ -1,6 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h> /* To use malloc */
-#include <string.h> /* To use string copy: strcpy(); */
+//#include <stdlib.h> /* To use malloc */
 
 /**
  * PRACTICE
